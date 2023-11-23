@@ -4,7 +4,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import BancolombiaIcon from './/assets/logo.svg'
 import { useNavigate } from 'react-router-dom';
 import { NavLink as ReactNav } from 'react-router-dom'
-import { Web3Button } from '@web3modal/react'
+import { connectWeb3Auth } from  './utils/web3auth'
 
 
 export function AppBarTop() {
@@ -131,11 +131,15 @@ export function AppBarTop() {
                     </Box>
 
                     <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
-                        <Web3Button />
+                        <Button variant="contained" id="walletButton" onClick={() => connectWeb3Auth()} color="yellow" sx={{ backgroundColor: 'FCDB25' }}>
+                            Login test
+                        </Button>
                     </Box>
 
                     <Box sx={{ flexGrow: 0, display: { xs: 'flex', md: 'none' } }}>
-                        <Web3Button />
+                        <Button variant="contained" id="walletButton" onClick={() => connectWeb3Auth()} color="yellow" sx={{ backgroundColor: 'FCDB25' }}>
+                            Login test
+                        </Button>
                     </Box>
 
                 </Toolbar>

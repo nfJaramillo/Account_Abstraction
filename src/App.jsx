@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AppBarTop } from './AppBar';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Home from './pages/home'
@@ -12,6 +12,7 @@ import { EthereumClient, w3mConnectors, w3mProvider } from '@web3modal/ethereum'
 import { Web3Modal } from '@web3modal/react'
 import { configureChains, createConfig, WagmiConfig } from 'wagmi'
 import { sepolia } from 'wagmi/chains'
+import {initWeb3Auth} from './utils/web3auth'
 
 
 
@@ -47,6 +48,10 @@ const App = () => {
     setOpen(false);
   };
 
+  useEffect(() => {
+    initWeb3Auth()
+  }, []);
+
   return (
     <WagmiConfig config={wagmiConfig}>
       <AppContext.Provider value={alert}>
@@ -54,7 +59,7 @@ const App = () => {
           <div className="App">
             <AppBarTop></AppBarTop>
             <Routes>
-            <Route exact path="Blockchain4Bintec/Certificado" element={<Certificado />} />
+              <Route exact path="Blockchain4Bintec/Certificado" element={<Certificado />} />
               <Route exact path="Blockchain4Bintec/Lienzo" element={<Canvas />} />
               <Route exact path="Blockchain4Bintec/" element={<Home />} />
               <Route exact path="*" element={<Navigate to='Blockchain4Bintec/' />} />
