@@ -1,10 +1,13 @@
 import * as React from 'react';
+import { useEffect } from "react";
 import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Button, MenuItem } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import BancolombiaIcon from './/assets/logo.svg'
 import { useNavigate } from 'react-router-dom';
 import { NavLink as ReactNav } from 'react-router-dom'
-import { connectWeb3Auth } from  './utils/web3auth'
+import { initWeb3Auth, connectWeb3Auth, isConnected } from './utils/web3auth'
+
+
 
 
 export function AppBarTop() {
@@ -13,11 +16,11 @@ export function AppBarTop() {
 
     // Lo siguientes 3 ajustes se pueden editar
     // Paginas que se muestran en el menu
-    const pages = ['Lienzo', 'Certificado'];
+    const pages = ['NFT'];
     // Titulo que se muestra cuando el tamaño de pantalla es de un computador
-    const titulo = 'BLOCKCHAIN FOR BINTEC'
+    const titulo = 'POC ACCOUNT ABSTRACTION'
     // Titulo que se muestra cuando el tamaño de pantalla es de un celular
-    const tituloResumido = 'B4B'
+    const tituloResumido = 'POC AA'
     // Link base de la pagina que debe ser igual al estipulado en App.jsx
     const linkBase = 'Blockchain4Bintec/'
 
@@ -25,17 +28,33 @@ export function AppBarTop() {
 
 
     const [anchorElNav, setAnchorElNav] = React.useState(null);
-    const handleOpenNavMenu = (event) => {
-        setAnchorElNav(event.currentTarget);
+    const [connected, setConnected] = React.useState(false);
+    const handleOpenNavMenu = (event: any) => {
+        setAnchorElNav(() => event.currentTarget);
     };
 
 
-    const handleCloseNavMenu = (page) => {
+    const login = async () => {
+        await connectWeb3Auth()
+        setConnected(await isConnected())
+    }
+
+    const initializeWeb3Auth = async () => {
+        await initWeb3Auth()
+        setConnected(await isConnected())
+    }
+
+
+    const handleCloseNavMenu = (page: any) => {
         page = page.toLowerCase();
         page = page.replace(" ", "")
         navigate(linkBase + page);
         setAnchorElNav(null);
     };
+
+    useEffect(() => {
+        initializeWeb3Auth()
+    }, []);
 
     return (
         <AppBar position="static" sx={{ borderRadius: 1 }}>
@@ -51,10 +70,10 @@ export function AppBarTop() {
                                 display: { xs: 'none', md: 'flex' },
                                 fontWeight: 700,
                                 letterSpacing: '.3rem',
-                                color: 'inherit',
+                                color: 'white',
                                 textDecoration: 'none',
                                 '&:hover': { bgcolor: 'white', color: 'black' },
-                                borderRadius: 1
+                                borderRadius: 1,
                             }}
                         >
                             {titulo}
@@ -131,14 +150,24 @@ export function AppBarTop() {
                     </Box>
 
                     <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
-                        <Button variant="contained" id="walletButton" onClick={() => connectWeb3Auth()} color="yellow" sx={{ backgroundColor: 'FCDB25' }}>
-                            Login test
+                        <Button variant="contained" id="walletButton" onClick={() => login()} sx={{ backgroundColor: '#ffd204', color: '#000000' }}>
+
+                            {connected === true ? (
+                                "Conectado"
+                            ) : (
+                                "Login"
+                            )}
+
                         </Button>
                     </Box>
 
                     <Box sx={{ flexGrow: 0, display: { xs: 'flex', md: 'none' } }}>
-                        <Button variant="contained" id="walletButton" onClick={() => connectWeb3Auth()} color="yellow" sx={{ backgroundColor: 'FCDB25' }}>
-                            Login test
+                        <Button variant="contained" id="walletButton" onClick={() => login()} sx={{ backgroundColor: '#ffd204', color: '#000000' }}>
+                            {connected === true ? (
+                                "Conectado"
+                            ) : (
+                                "Login"
+                            )}
                         </Button>
                     </Box>
 

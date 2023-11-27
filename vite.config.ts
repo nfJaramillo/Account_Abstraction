@@ -1,11 +1,9 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
-import eslint from 'vite-plugin-eslint';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/Blockchain4Bintec/',
-  plugins: [react(), eslint()],
+  plugins: [react()],
   resolve: {
     alias: {
       crypto: "empty-module",
@@ -24,10 +22,6 @@ export default defineConfig({
     },
   },
   define: {
-    global: {},
-    "process.env": {}
+    global: "globalThis",
   },
-  server: {
-    port: 3000
-  }
 })
