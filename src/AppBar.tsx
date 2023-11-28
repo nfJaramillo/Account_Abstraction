@@ -22,7 +22,7 @@ export function AppBarTop() {
     // Titulo que se muestra cuando el tamaño de pantalla es de un celular
     const tituloResumido = 'POC AA'
     // Link base de la pagina que debe ser igual al estipulado en App.jsx
-    const linkBase = 'Blockchain4Bintec/'
+    const linkBase = 'PoC-AccountAbstraction/'
 
     const navigate = useNavigate();
 
@@ -46,6 +46,7 @@ export function AppBarTop() {
 
 
     const handleCloseNavMenu = (page: any) => {
+        console.log(page)
         page = page.toLowerCase();
         page = page.replace(" ", "")
         navigate(linkBase + page);
@@ -80,14 +81,14 @@ export function AppBarTop() {
                         </Typography>
                     </MenuItem>
 
-                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none', color:'white' } }}>
                         <IconButton
                             size="large"
                             aria-label="account of current user"
                             aria-controls="menu-appbar"
                             aria-haspopup="true"
                             onClick={handleOpenNavMenu}
-                            color="inherit"
+                            color='inherit'
                         >
                             <MenuIcon />
                         </IconButton>
@@ -129,7 +130,7 @@ export function AppBarTop() {
                             fontFamily: 'monospace',
                             fontWeight: 700,
                             letterSpacing: '.3rem',
-                            color: 'inherit',
+                            color: 'white',
                             textDecoration: 'none',
                         }}
                     >

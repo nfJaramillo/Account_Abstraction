@@ -1,4 +1,6 @@
+import { WalletClientSigner } from "@alchemy/aa-core";
 import { Web3Auth } from "@web3auth/modal";
+import { createWalletClient, custom } from "viem";
 
 // Initialize within useEffect()
 const web3auth = new Web3Auth({
@@ -26,5 +28,18 @@ export const connectWeb3Auth = async () => {
 export const isConnected = async () => {
     return await web3auth.connected
 }
+
+export const web3authSigner =  () => {
+    if(web3auth.provider)
+    return new WalletClientSigner(
+        createWalletClient({
+            transport: custom(web3auth.provider)
+        }),
+        "web3auth" // signerType
+    )
+}
+
+
+
 
 

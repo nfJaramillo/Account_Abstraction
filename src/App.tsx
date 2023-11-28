@@ -47,9 +47,9 @@ const App: React.FC = () => {
         <div className="App">
           <AppBarTop></AppBarTop>
           <Routes>
-            <Route path="Blockchain4Bintec/" element={<Nft />} />
-            <Route path="Blockchain4Bintec/" element={<Home />} />
-            <Route path="*" element={<Navigate to='Blockchain4Bintec/' />} />
+            <Route path="PoC-AccountAbstraction/Nft" element={<Nft />} />
+            <Route path="PoC-AccountAbstraction/" element={<Home />} />
+            <Route path="*" element={<Navigate to='PoC-AccountAbstraction/' />} />
           </Routes>
           <Snackbar open={open} autoHideDuration={6000} onClose={() => handleClose}>
             <Alert onClose={() => handleClose} severity={alertSeverity} sx={{ width: '87vw' }}>
