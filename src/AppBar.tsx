@@ -16,7 +16,7 @@ export function AppBarTop() {
 
     // Lo siguientes 3 ajustes se pueden editar
     // Paginas que se muestran en el menu
-    const pages = ['NFT'];
+    const pages = ['NFT','MyNfts'];
     // Titulo que se muestra cuando el tamaño de pantalla es de un computador
     const titulo = 'POC ACCOUNT ABSTRACTION'
     // Titulo que se muestra cuando el tamaño de pantalla es de un celular

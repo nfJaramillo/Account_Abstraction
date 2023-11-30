@@ -1,13 +1,13 @@
 import { AlchemyProvider } from "@alchemy/aa-alchemy";
-import {
-  LightSmartContractAccount,
-  getDefaultLightAccountFactoryAddress,
-} from "@alchemy/aa-accounts";
+import { Alchemy, Network } from "alchemy-sdk";
+import { LightSmartContractAccount, getDefaultLightAccountFactoryAddress, } from "@alchemy/aa-accounts";
 import { sepolia } from "viem/chains";
 import { web3authSigner } from "./web3auth";
 
 const chain = sepolia;
 const apiKey = "B6mA7MAJxeH7HfC-s2M97yzjWHGJW2Lb"
+
+const alchemy = new Alchemy({ apiKey, network: Network.ETH_SEPOLIA });
 
 export const provider = async () => {
 
@@ -25,4 +25,8 @@ export const provider = async () => {
           rpcClient,
         })
     )
+}
+
+export const getAlchemy = () => {
+  return alchemy
 }

@@ -6,6 +6,7 @@ import { AppBarTop } from './AppBar';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Home from './pages/home'
 import Nft from './pages/nft';
+import MyNfts from './pages/myNfts';
 import { } from './utils/web3auth'
 import { AlertColor } from '@mui/material/Alert';
 
@@ -48,6 +49,7 @@ const App: React.FC = () => {
           <AppBarTop></AppBarTop>
           <Routes>
             <Route path="PoC-AccountAbstraction/Nft" element={<Nft />} />
+            <Route path="PoC-AccountAbstraction/MyNfts" element={<MyNfts/>} />
             <Route path="PoC-AccountAbstraction/" element={<Home />} />
             <Route path="*" element={<Navigate to='PoC-AccountAbstraction/' />} />
           </Routes>

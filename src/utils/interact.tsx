@@ -1,10 +1,13 @@
 import { encodeFunctionData } from "viem";
-import { provider } from "./alchemyProvider.js";
+import { provider, getAlchemy } from "./alchemyProvider.js";
 import contractABI from '../assets/contractABI.json'
+import { getInfo } from "./web3auth.js";
+import { web3authSigner } from "./web3auth.js";
+import { AccountBalance } from "@mui/icons-material";
 
-// this is an example ABI for a contract with a "mint" function
+
 const abi = contractABI
-
+const contractAddress = "0x9D4cCb21b17658A7E3220933EE3BeC839f80403c"
 
 const uoCallData = encodeFunctionData({
     abi,
@@ -21,7 +24,7 @@ export const getNFT = async () => {
             });
 
             const uo = await connectedProvider.sendUserOperation({
-                target: "0x9D4cCb21b17658A7E3220933EE3BeC839f80403c",
+                target: contractAddress,
                 data: uoCallData,
             });
 
@@ -51,5 +54,49 @@ export const getNFT = async () => {
             status: "😥 Algo salió mal:" + err.message,
         };
 
+    }
+}
+
+
+
+export const checkSelledNFT = async () => {
+    try {
+        let test = await provider()
+        if (test) {
+            const test2 = test.account
+            if (test2) {
+                console.log(test2)
+            }
+        }
+
+        const address = (await getInfo()).email
+        if (address) {
+            const response = await getAlchemy().nft.getNftsForOwner(address, {
+                omitMetadata: false,
+                contractAddresses: [contractAddress]
+
+            });
+            return {
+                success: true,
+                severity: "success",
+                status: JSON.stringify(response, null, 2)
+
+            }
+        }
+        else {
+            return {
+                success: false,
+                severity: "error",
+                status: '😥 No se pudo obtener la dirección de la billetera'
+            }
+
+        }
+    } catch (error: any) {
+        if (error.message)
+            return {
+                success: false,
+                severity: "error",
+                status: "😥 Something went wrong: " + error.message
+            }
     }
 }

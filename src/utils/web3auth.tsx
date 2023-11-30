@@ -39,6 +39,14 @@ export const web3authSigner =  () => {
     )
 }
 
+export const getInfo = async () => {
+    return await web3auth.getUserInfo();
+}
+
+export const getProvider = async () => {
+    return await web3auth.provider;
+}
+
 
 
 
