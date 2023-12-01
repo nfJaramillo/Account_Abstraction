@@ -13,6 +13,7 @@ const MyNfts = () => {
     useEffect(() => {
 
         const onCheckPressed = async () => {
+         
 
             if (await isConnected()) {
                 let response = await checkSelledNFT();
@@ -25,12 +26,15 @@ const MyNfts = () => {
                     }
                 }
                 else {
-                    const temp = await JSON.parse(status);
-                    setData(temp['ownedNfts'])
+                    if (response) {
+                        const temp = await JSON.parse(response.status);
+                        setData(temp['ownedNfts'])
+                    }
                 }
             }
             else {
                 if (contextData) {
+                    console.log(await isConnected())
                     contextData.severity("warning")
                     contextData.text("Conecta tu billeteta");
                     contextData.show(true)
@@ -56,7 +60,7 @@ const MyNfts = () => {
     return (
         <Grid container justifyContent="center" maxWidth="xl" sx={{ display: 'flex', alignItems: 'center', bgcolor: '#cfe8fc', minHeight: '80vh', borderRadius: 1, mt: 3, background: 'linear-gradient(to bottom, #F8F8F8, #FFFFFF)' }}>
             <Stack spacing={2} minWidth="90vw" justifyContent="center" alignItems="center">
-                <Typography sx={{ mt: 3, typography: { xs: 'h5', sm: 'h5', md: 'h3', lg: 'h3' } }}>Mis Tickets</Typography>
+                <Typography sx={{ mt: 3, typography: { xs: 'h5', sm: 'h5', md: 'h3', lg: 'h3' } }}>Mis Nfts</Typography>
                 <Box display="flex" alignItems="center">
                     <Grid container rowSpacing={1} maxWidth="xl" justifyContent="center" columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                         {data?.map((nft) => (
@@ -66,7 +70,7 @@ const MyNfts = () => {
                                         <CardMedia
 
                                             component="img"
-                                            image={nft['rawMetadata']['image']}
+                                            image={nft['image']['cachedUrl']}
                                             alt="green iguana"
                                         />
                                         <CardContent>
@@ -79,12 +83,12 @@ const MyNfts = () => {
                                             <br></br>
                                             <Typography display='inline' fontWeight='bold'>Fecha: </Typography>
                                             <Typography display='inline' variant="body2" color="text.secondary" align="justify">
-                                                {getLocalDateTime(new Date(nft['rawMetadata']['date']))}
+                                                {getLocalDateTime(new Date(nft['raw']['metadata']['date']))}
                                             </Typography>
                                             <br />
                                             <Typography display='inline' fontWeight='bold'>Precio: </Typography>
                                             <Typography display='inline' variant="body2" color="text.secondary" align="justify">
-                                                {nft['rawMetadata']['price'] / 10 ** 18 + ' eth'}
+                                                {nft['raw']['metadata']['price'] / 10 ** 18 + ' eth'}
                                             </Typography>
                                             <br />
                                             <Typography display='inline' fontWeight='bold'>Cantidad: </Typography>

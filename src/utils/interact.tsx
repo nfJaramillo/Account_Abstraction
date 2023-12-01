@@ -61,26 +61,21 @@ export const getNFT = async () => {
 
 export const checkSelledNFT = async () => {
     try {
-        let test = await provider()
-        if (test) {
-            const test2 = test.account
-            if (test2) {
-                console.log(test2)
-            }
-        }
+        const alchemyProvider = await provider()
+        if (alchemyProvider) {
+            const address = await alchemyProvider.getAddress()
+            if (address) {
+                const response = await getAlchemy().nft.getNftsForOwner(address, {
+                    omitMetadata: false,
+                    contractAddresses: [contractAddress]
 
-        const address = (await getInfo()).email
-        if (address) {
-            const response = await getAlchemy().nft.getNftsForOwner(address, {
-                omitMetadata: false,
-                contractAddresses: [contractAddress]
+                });
+                return {
+                    success: true,
+                    severity: "success",
+                    status: JSON.stringify(response, null, 2)
 
-            });
-            return {
-                success: true,
-                severity: "success",
-                status: JSON.stringify(response, null, 2)
-
+                }
             }
         }
         else {

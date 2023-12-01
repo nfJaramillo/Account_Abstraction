@@ -5,7 +5,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import BancolombiaIcon from './/assets/logo.svg'
 import { useNavigate } from 'react-router-dom';
 import { NavLink as ReactNav } from 'react-router-dom'
-import { initWeb3Auth, connectWeb3Auth, isConnected } from './utils/web3auth'
+import { connectWeb3Auth, isConnected } from './utils/web3auth'
 
 
 
@@ -16,7 +16,7 @@ export function AppBarTop() {
 
     // Lo siguientes 3 ajustes se pueden editar
     // Paginas que se muestran en el menu
-    const pages = ['NFT','MyNfts'];
+    const pages = ['NFT','My Nfts'];
     // Titulo que se muestra cuando el tamaño de pantalla es de un computador
     const titulo = 'POC ACCOUNT ABSTRACTION'
     // Titulo que se muestra cuando el tamaño de pantalla es de un celular
@@ -40,8 +40,8 @@ export function AppBarTop() {
     }
 
     const initializeWeb3Auth = async () => {
-        await initWeb3Auth()
         setConnected(await isConnected())
+  
     }
 
 
@@ -59,7 +59,7 @@ export function AppBarTop() {
 
     return (
         <AppBar position="static" sx={{ borderRadius: 1 }}>
-            <Container maxWidth="xl">
+            <Container maxWidth="xl" sx={{ backgroundColor:'#2c2a29' }}>
                 <Toolbar disableGutters>
                     <Box component="img" src={BancolombiaIcon} alt="Logo de Bancolombia" sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, maxWidth: 40 }} />
 
@@ -151,7 +151,7 @@ export function AppBarTop() {
                     </Box>
 
                     <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
-                        <Button variant="contained" id="walletButton" onClick={() => login()} sx={{ backgroundColor: '#ffd204', color: '#000000' }}>
+                        <Button variant="contained" id="walletButton" onClick={() => login()} sx={{ backgroundColor: '#ffd204', color: '#000000', '&:hover': { bgcolor: '#b29303' } }}>
 
                             {connected === true ? (
                                 "Conectado"
@@ -163,7 +163,7 @@ export function AppBarTop() {
                     </Box>
 
                     <Box sx={{ flexGrow: 0, display: { xs: 'flex', md: 'none' } }}>
-                        <Button variant="contained" id="walletButton" onClick={() => login()} sx={{ backgroundColor: '#ffd204', color: '#000000' }}>
+                        <Button variant="contained" id="walletButton" onClick={() => login()} sx={{ backgroundColor: '#ffd204', color: '#000000', '&:hover': { bgcolor: '#b29303' } }}>
                             {connected === true ? (
                                 "Conectado"
                             ) : (

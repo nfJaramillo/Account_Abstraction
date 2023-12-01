@@ -27,19 +27,22 @@ const App: React.FC = () => {
   //State variables
   const [alertText, setAlertText] = useState<string>();
   const [alertSeverity, setAlertSeverity] = useState<AlertColor>();
-  const [open, setOpen] = useState<boolean>(false);
+  const [open, setOpen] = useState(false);
   var [alert] = useState<AlertProps>({
     text: setAlertText,
     severity: setAlertSeverity,
     show: setOpen,
   })
 
-  const handleClose = (reason: string) => {
+  const handleClose = (event:any, reason: string) => {
+    /*
     if (reason === 'clickaway') {
       return;
     }
+    */
     setOpen(false);
   };
+
 
 
   return (
@@ -53,7 +56,7 @@ const App: React.FC = () => {
             <Route path="PoC-AccountAbstraction/" element={<Home />} />
             <Route path="*" element={<Navigate to='PoC-AccountAbstraction/' />} />
           </Routes>
-          <Snackbar open={open} autoHideDuration={6000} onClose={() => handleClose}>
+          <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
             <Alert onClose={() => handleClose} severity={alertSeverity} sx={{ width: '87vw' }}>
               {alertText}
             </Alert>
@@ -69,6 +72,18 @@ const { palette } = createTheme();
 const { augmentColor } = palette;
 const createColor = (mainColor: string) => augmentColor({ color: { main: mainColor } });
 const theme = createTheme({
+  components: {
+    // Name of the component
+    MuiPaper: {
+      styleOverrides: {
+        // Name of the slot
+        root: {
+          // Some CSS
+         
+        },
+      },
+    },
+  },
   typography: {
     fontFamily: 'Nunito',
   },
